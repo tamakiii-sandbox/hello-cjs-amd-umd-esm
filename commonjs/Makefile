@@ -1,4 +1,5 @@
-.PHONY: help setup install run clean uninstall
+.PHONY: help setup install clean uninstall
+.PHONY: jscat node-test node-test-only test
 
 help:
 	@cat $(firstword $(MAKEFILE_LIST))
@@ -8,8 +9,17 @@ setup:
 install: \
 	node_modules
 
-run: | src/index.js
-	npx --no jscat $| | node -
+jscat: | src/index.js
+	npx --no jscat $|
+
+node-test: | src/index.js
+	npx --no node--test $|
+
+node-test-only: | src/index.js
+	npx --no node--test-only $|
+
+test: | src/index.js
+	npx --no test $|
 
 node_modules:
 	npm install
